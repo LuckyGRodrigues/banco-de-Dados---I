@@ -1,59 +1,63 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/config';
-import UserModel from './UserModel';
 
-const Address = sequelize.define(
-  'addresses',
+const User = sequelize.define(
+  'users',
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    zipCode: {
-      field: 'zip_code',
+    username: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      unique: true,
+    },
+    cpf: {
+      type: DataTypes.STRING(255),
+      unique: true,
+    },
+    name: {
+      type: DataTypes.STRING(200),
+      allowNull: false,
+      unique: true,
+    },
+    phone: {
+      type: DataTypes.STRING(16),
+      allowNull: false,
+    },
+    passwordHash: {
+      field: 'password_hash',
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    state: {
+    token: {
       type: DataTypes.STRING(255),
-      allowNull: false,
     },
-    city: {
-      type: DataTypes.STRING(255),
+    role: {
+      type: DataTypes.STRING(200),
       allowNull: false,
+      defaultValue: 'customer',
     },
-    street: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
+    cart: {
+      type: DataTypes.JSONB(16),
     },
-    district: {
+    email: {
       type: DataTypes.STRING(255),
       allowNull: false,
+      unique: true,
     },
-    numberForget: {
-      field: 'number_forget',
+    recuperation: {
       type: DataTypes.STRING(255),
-      allowNull: false,
     },
   },
   {
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
   },
 );
 
-Address.belongsTo(UserModel, {
-  as: 'User',
-  onDelete: 'no action',
-  onUpdate: 'no action',
-  foreignKey: {
-    field: 'id_user',
-    name: 'idUser',
-    allowNull: false,
-  },
-});
-
-export default Address;
+export default User;
