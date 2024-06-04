@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/config';
 
-const Cupom = sequelize.define(
+const CupomModel = sequelize.define(
   'cupoms',
   {
     id: {
@@ -36,4 +36,4 @@ const Cupom = sequelize.define(
   },
 );
 
-export default Cupom;
+export default CupomModel;
