@@ -154,7 +154,7 @@ const destroy = async (req, res) => {
 //     if (response) {
 //       throw new Error('Username já foi utilizado');
 //     }
-//     const passwordHash = await bcrypt.hash(password, 10);
+//     // const passwordHash = await bcrypt.hash(password, 10);
 
 //     const resposta = await UserModel.create({
 //       cpf,
@@ -195,8 +195,11 @@ const destroy = async (req, res) => {
 //     const { passwordHash } = user;
 //     const resposta = bcrypt.compare(password, passwordHash);
 //     if (resposta) {
-//       const token = jwt.sign({ userId: user.id, userName: user.nome },
-//       process.env.SECRET_KEY, { expiresIn: '1h' });
+//       const token = jwt.sign(
+//         { userId: user.id, userName: user.nome },
+//         process.env.SECRET_KEY,
+//         { expiresIn: '1h' },
+//       );
 //       return res.status(200).send({
 //         token,
 //       });

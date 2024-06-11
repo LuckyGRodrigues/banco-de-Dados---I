@@ -37,7 +37,6 @@ const User = sequelize.define(
     },
     role: {
       type: DataTypes.STRING(200),
-      allowNull: false,
       defaultValue: 'customer',
     },
     cart: {

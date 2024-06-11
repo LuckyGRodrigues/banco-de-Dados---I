@@ -5,7 +5,7 @@ export default (app) => {
   app.get('/user/:id', UserController.get);
   // app.post('/user/register', UserController.register);
   // app.post('/user/login', UserController.loginFunciton);
-  app.post('/user', UserController.create);
-  app.patch('/user/:id', UserController.update);
-  app.delete('/user/:id', UserController.destroy);
+  app.post('/user/persist', UserController.create);
+  app.patch('/user/persist/:id', UserController.update);
+  app.delete('/user/delete/:id', UserController.destroy);
 };
