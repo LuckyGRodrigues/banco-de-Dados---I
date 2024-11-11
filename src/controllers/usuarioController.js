@@ -1,23 +1,25 @@
-import OrderProductModel from '../models/OrderProductModel';
+import UsuarioModel from '../models/UsuarioModel';
 
 const get = async (req, res) => {
   try {
-    const id = req.params.id ? req.params.id.toString().replace(/\D/g, '') : null;
+    const cpf = req.params.cpf ? req.params.cpf.toString().replace(/\D/g, '') : null;
 
-    if (!id) {
-      const response = await OrderProductModel.findAll({
-        order: [['id', 'asc']],
+    if (!cpf) {
+      const response = await UsuarioModel.findAll({
+        order: [['nome', 'asc']],
       });
       return res.status(200).send({
         message: 'Dados Encontrados!',
         response,
       });
     }
-    const response = await OrderProductModel.findOne({
+
+    const response = await UsuarioModel.findOne({
       where: {
-        id,
+        cpf,
       },
     });
+
     return res.status(200).send({
       message: 'Dados Encontrados!',
       response,
@@ -33,15 +35,11 @@ const get = async (req, res) => {
 const create = async (req, res) => {
   try {
     const {
-      priceProduct, quantity,
-      idUserCostumer, idUserDeliver,
+      cpf, nome, telefone, email, status,
     } = req.body;
 
-    const response = await OrderProductModel.create({
-      priceProduct,
-      quantity,
-      idUserCostumer,
-      idUserDeliver,
+    const response = await UsuarioModel.create({
+      cpf, nome, telefone, email, status,
     });
 
     return res.status(201).send({
@@ -58,24 +56,24 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const id = req.params.id ? req.params.id.toString().replace(/\D/g, '') : null;
+    const cpf = req.params.cpf ? req.params.cpf.toString().replace(/\D/g, '') : null;
 
-    if (!id) {
+    if (!cpf) {
       return res.status(400).send({
-        message: 'Id não informado',
+        message: 'Cpf não informado',
         response: [],
       });
     }
 
-    const response = await OrderProductModel.findOne({
+    const response = await UsuarioModel.findOne({
       where: {
-        id,
+        cpf,
       },
     });
 
     if (!response) {
       return res.status(500).send({
-        message: 'Id Não Encontrado na Base',
+        message: 'Cpf Não Encontrado na Base',
         response: [],
       });
     }
@@ -99,18 +97,18 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const id = req.params.id ? req.params.id.toString().replace(/\D/g, '') : null;
+    const cpf = req.params.cpf ? req.params.cpf.toString().replace(/\D/g, '') : null;
 
-    if (!id) {
+    if (!cpf) {
       return res.status(400).send({
         message: 'Id não informado',
         response: [],
       });
     }
 
-    const response = await OrderProductModel.findOne({
+    const response = await UsuarioModel.findOne({
       where: {
-        id,
+        cpf,
       },
     });
 
@@ -122,13 +120,17 @@ const destroy = async (req, res) => {
     }
 
     await response.destroy();
+
+    return res.status(200).send({
+      message: 'Usuário deletado com sucesso',
+      response: [],
+    });
   } catch (error) {
     return res.status(500).send({
       message: 'Ops!',
       response: error.message,
     });
   }
-  return 0;
 };
 
 export default {
