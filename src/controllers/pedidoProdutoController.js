@@ -1,4 +1,4 @@
-import PedidoServico from '../models/PedidoServicoModel';
+import PedidoProduto from '../models/PedidoProdutoModel';
 
 const get = async (req, res) => {
   try {
@@ -6,7 +6,7 @@ const get = async (req, res) => {
     const idPedido = req.params.idPedido ? req.params.idPedido.toString().replace(/\D/g, '') : null;
 
     if (!idServico && !idPedido) {
-      const response = await PedidoServico.findAll({
+      const response = await PedidoProduto.findAll({
         order: [['id_servico', 'asc']],
       });
       return res.status(200).send({
@@ -15,7 +15,7 @@ const get = async (req, res) => {
       });
     }
 
-    const response = await PedidoServico.findOne({
+    const response = await PedidoProduto.findOne({
       where: {
         idServico, idPedido,
       },
@@ -36,11 +36,11 @@ const get = async (req, res) => {
 const create = async (req, res) => {
   try {
     const {
-      idPedido, idServico,
+      idPedido, idServico, quantidade,
     } = req.body;
 
-    const response = await PedidoServico.create({
-      idPedido, idServico,
+    const response = await PedidoProduto.create({
+      idPedido, idServico, quantidade,
     });
 
     return res.status(201).send({
@@ -67,7 +67,7 @@ const update = async (req, res) => {
       });
     }
 
-    const response = await PedidoServico.findOne({
+    const response = await PedidoProduto.findOne({
       where: {
         idServico,
       },
@@ -109,7 +109,7 @@ const destroy = async (req, res) => {
       });
     }
 
-    const response = await PedidoServico.findOne({
+    const response = await PedidoProduto.findOne({
       where: {
         idServico, idPedido,
       },

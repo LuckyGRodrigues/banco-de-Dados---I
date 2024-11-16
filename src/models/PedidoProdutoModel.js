@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/config';
 import Pedido from './PedidoModel';
-import Produto from './ProdutoModel';
+import Servico from './ServicoModel';
 
 const PedidoProduto = sequelize.define(
   'pedido_produto',
@@ -11,15 +11,10 @@ const PedidoProduto = sequelize.define(
       type: DataTypes.INTEGER,
       primaryKey: true,
     },
-    idProduto: {
-      field: 'id_produto',
+    idServico: {
+      field: 'id_pedido',
       type: DataTypes.INTEGER,
       primaryKey: true,
-    },
-    quantidade: {
-      field: 'quantidade',
-      type: DataTypes.NUMBER,
-      allowNull: false,
     },
   },
   {
@@ -39,7 +34,7 @@ PedidoProduto.belongsTo(Pedido, {
   },
 });
 
-PedidoProduto.belongsTo(Produto, {
+PedidoProduto.belongsTo(Servico, {
   as: 'servico',
   onDelete: 'no action',
   onUpdate: 'no action',
