@@ -1,13 +1,12 @@
-import PedidoProduto from '../models/PedidoProdutoModel';
+import ConsumidorModel from '../models/ConsumidorModel';
 
 const get = async (req, res) => {
   try {
-    const idServico = req.params.idServico ? req.params.idServico.toString().replace(/\D/g, '') : null;
-    const idPedido = req.params.idPedido ? req.params.idPedido.toString().replace(/\D/g, '') : null;
+    const id = req.params.id ? req.params.id.toString().replace(/\D/g, '') : null;
 
-    if (!idServico && !idPedido) {
-      const response = await PedidoProduto.findAll({
-        order: [['idServico', 'asc']],
+    if (!id) {
+      const response = await ConsumidorModel.findAll({
+        order: [['id', 'asc']],
       });
       return res.status(200).send({
         message: 'Dados Encontrados!',
@@ -15,9 +14,9 @@ const get = async (req, res) => {
       });
     }
 
-    const response = await PedidoProduto.findOne({
+    const response = await ConsumidorModel.findOne({
       where: {
-        idServico, idPedido,
+        id,
       },
     });
 
@@ -36,11 +35,11 @@ const get = async (req, res) => {
 const create = async (req, res) => {
   try {
     const {
-      idPedido, idServico, quantidade,
+      id, dataCadastro, cpfUsuario,
     } = req.body;
 
-    const response = await PedidoProduto.create({
-      idPedido, idServico, quantidade,
+    const response = await ConsumidorModel.create({
+      id, dataCadastro, cpfUsuario,
     });
 
     return res.status(201).send({
@@ -57,19 +56,18 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const idServico = req.params.idServico ? req.params.idServico.toString().replace(/\D/g, '') : null;
-    const idPedido = req.params.idPedido ? req.params.idPedido.toString().replace(/\D/g, '') : null;
+    const id = req.params.id ? req.params.id.toString().replace(/\D/g, '') : null;
 
-    if (!idServico || !idPedido) {
+    if (!id) {
       return res.status(400).send({
         message: 'id não informado',
         response: [],
       });
     }
 
-    const response = await PedidoProduto.findOne({
+    const response = await ConsumidorModel.findOne({
       where: {
-        idServico,
+        id,
       },
     });
 
@@ -99,19 +97,18 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const idServico = req.params.idServico ? req.params.idServico.toString().replace(/\D/g, '') : null;
-    const idPedido = req.params.idPedido ? req.params.idPedido.toString().replace(/\D/g, '') : null;
+    const id = req.params.id ? req.params.id.toString().replace(/\D/g, '') : null;
 
-    if (!idServico) {
+    if (!id) {
       return res.status(400).send({
         message: 'id não informado',
         response: [],
       });
     }
 
-    const response = await PedidoProduto.findOne({
+    const response = await ConsumidorModel.findOne({
       where: {
-        idServico, idPedido,
+        id,
       },
     });
 
