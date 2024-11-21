@@ -2,12 +2,12 @@ import PedidoProduto from '../models/PedidoProdutoModel';
 
 const get = async (req, res) => {
   try {
-    const idServico = req.params.idServico ? req.params.idServico.toString().replace(/\D/g, '') : null;
+    const idProduto = req.params.idProduto ? req.params.idProduto.toString().replace(/\D/g, '') : null;
     const idPedido = req.params.idPedido ? req.params.idPedido.toString().replace(/\D/g, '') : null;
 
-    if (!idServico && !idPedido) {
+    if (!idProduto && !idPedido) {
       const response = await PedidoProduto.findAll({
-        order: [['idServico', 'asc']],
+        order: [['idProduto', 'asc']],
       });
       return res.status(200).send({
         message: 'Dados Encontrados!',
@@ -17,7 +17,8 @@ const get = async (req, res) => {
 
     const response = await PedidoProduto.findOne({
       where: {
-        idServico, idPedido,
+        idProduto,
+        idPedido,
       },
     });
 
@@ -36,11 +37,11 @@ const get = async (req, res) => {
 const create = async (req, res) => {
   try {
     const {
-      idPedido, idServico, quantidade,
+      idPedido, idProduto, quantidade,
     } = req.body;
 
     const response = await PedidoProduto.create({
-      idPedido, idServico, quantidade,
+      idPedido, idProduto, quantidade,
     });
 
     return res.status(201).send({
@@ -57,10 +58,10 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const idServico = req.params.idServico ? req.params.idServico.toString().replace(/\D/g, '') : null;
+    const idProduto = req.params.idProduto ? req.params.idProduto.toString().replace(/\D/g, '') : null;
     const idPedido = req.params.idPedido ? req.params.idPedido.toString().replace(/\D/g, '') : null;
 
-    if (!idServico || !idPedido) {
+    if (!idProduto || !idPedido) {
       return res.status(400).send({
         message: 'id não informado',
         response: [],
@@ -69,7 +70,8 @@ const update = async (req, res) => {
 
     const response = await PedidoProduto.findOne({
       where: {
-        idServico,
+        idProduto,
+        idPedido,
       },
     });
 
@@ -99,10 +101,10 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const idServico = req.params.idServico ? req.params.idServico.toString().replace(/\D/g, '') : null;
+    const idProduto = req.params.idProduto ? req.params.idProduto.toString().replace(/\D/g, '') : null;
     const idPedido = req.params.idPedido ? req.params.idPedido.toString().replace(/\D/g, '') : null;
 
-    if (!idServico) {
+    if (!idProduto && !idPedido) {
       return res.status(400).send({
         message: 'id não informado',
         response: [],
@@ -111,7 +113,8 @@ const destroy = async (req, res) => {
 
     const response = await PedidoProduto.findOne({
       where: {
-        idServico, idPedido,
+        idProduto,
+        idPedido,
       },
     });
 

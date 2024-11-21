@@ -2,12 +2,12 @@ import PedidoServico from '../models/PedidoServicoModel';
 
 const get = async (req, res) => {
   try {
-    const idServico = req.params.idServico ? req.params.idServico.toString().replace(/\D/g, '') : null;
     const idPedido = req.params.idPedido ? req.params.idPedido.toString().replace(/\D/g, '') : null;
+    const idServico = req.params.idServico ? req.params.idServico.toString().replace(/\D/g, '') : null;
 
     if (!idServico && !idPedido) {
       const response = await PedidoServico.findAll({
-        order: [['id_servico', 'asc']],
+        order: [['idServico', 'asc']],
       });
       return res.status(200).send({
         message: 'Dados Encontrados!',

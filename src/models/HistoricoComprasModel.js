@@ -9,12 +9,13 @@ const historicoCompras = sequelize.define(
     id: {
       field: 'id',
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true,
     },
 
     data: {
       field: 'data',
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(15),
     },
   },
   {

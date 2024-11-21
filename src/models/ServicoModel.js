@@ -8,6 +8,7 @@ const Servico = sequelize.define(
     id: {
       field: 'id',
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true,
     },
     nome: {

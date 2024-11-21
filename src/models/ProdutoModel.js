@@ -8,6 +8,7 @@ const Produto = sequelize.define(
     id: {
       field: 'id',
       type: DataTypes.STRING(11),
+      autoIncrement: true,
       primaryKey: true,
     },
 

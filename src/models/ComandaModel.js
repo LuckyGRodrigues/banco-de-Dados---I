@@ -8,15 +8,16 @@ const Comanda = sequelize.define(
     id: {
       field: 'id',
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true,
     },
     data: {
       field: 'data',
-      type: DataTypes.STRING(11),
+      type: DataTypes.STRING(12),
     },
     hora: {
       field: 'hora',
-      type: DataTypes.STRING(8),
+      type: DataTypes.STRING(12),
     },
   },
   {

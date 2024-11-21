@@ -35,11 +35,11 @@ const get = async (req, res) => {
 const create = async (req, res) => {
   try {
     const {
-      id, cpdUsuario,
+      id, cpfUsuario,
     } = req.body;
 
     const response = await PedidoModel.create({
-      id, cpdUsuario,
+      id, cpfUsuario,
     });
 
     return res.status(201).send({

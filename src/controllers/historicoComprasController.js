@@ -35,11 +35,11 @@ const get = async (req, res) => {
 const create = async (req, res) => {
   try {
     const {
-      id, data, idConsumidor, idPedido,
+      data, idConsumidor, idPedido,
     } = req.body;
 
     const response = await HistoricoComprasModel.create({
-      id, data, idConsumidor, idPedido,
+      data, idConsumidor, idPedido,
     });
 
     return res.status(201).send({

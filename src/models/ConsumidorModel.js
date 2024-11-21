@@ -8,6 +8,7 @@ const Consumidor = sequelize.define(
     id: {
       field: 'id',
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true,
     },
 
