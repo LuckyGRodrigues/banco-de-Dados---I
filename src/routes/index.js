@@ -1,4 +1,5 @@
 import aeronaveRoute from './aeronaveRoute';
+import cartaoRoute from './cartaoRoute';
 import clienteRoute from './clienteRoute';
 import pagamentoRoute from './pagamentoRoute';
 import pessoaRoute from './pessoaRoute';
@@ -14,6 +15,7 @@ function Routes(app) {
   reservaRoute(app);
   pagamentoRoute(app);
   pilotoRoute(app);
+  cartaoRoute(app);
 }
 
 export default Routes;
