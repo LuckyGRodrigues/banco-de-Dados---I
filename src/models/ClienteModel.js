@@ -1,8 +1,9 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/config';
+import Pessoa from './PessoaModel';
 
-const Pessoa = sequelize.define(
-  'pessoa',
+const Cliente = sequelize.define(
+  'cliente',
   {
     id: {
       field: 'id',
@@ -15,8 +16,16 @@ const Pessoa = sequelize.define(
       type: DataTypes.STRING(12),
     },
     dataNascimento: {
-      field: 'email',
+      field: 'data_nascimento',
+      type: DataTypes.DATE,
+    },
+    cidadeResidencia: {
+      field: 'cidade_residencia',
       type: DataTypes.STRING(100),
+    },
+    uf: {
+      field: 'uf',
+      type: DataTypes.STRING(2),
     },
   },
   {
@@ -25,4 +34,15 @@ const Pessoa = sequelize.define(
   },
 );
 
-export default Pessoa;
+Cliente.belongsTo(Pessoa, {
+  as: 'pessoa',
+  onDelete: 'no action',
+  onUpdate: 'no action',
+  foreignKey: {
+    name: 'cpfPessoa',
+    allowNull: false,
+    field: 'cpf_pessoa',
+  },
+});
+
+export default Cliente;
