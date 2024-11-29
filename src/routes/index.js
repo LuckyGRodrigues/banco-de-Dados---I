@@ -2,6 +2,7 @@ import aeronaveRoute from './aeronaveRoute';
 import clienteRoute from './clienteRoute';
 import pagamentoRoute from './pagamentoRoute';
 import pessoaRoute from './pessoaRoute';
+import pilotoRoute from './pilotoRoute';
 import reservaRoute from './reservaRoute';
 import tipoAeronaveRoute from './tipoAeronaveRoute';
 
@@ -12,6 +13,7 @@ function Routes(app) {
   aeronaveRoute(app);
   reservaRoute(app);
   pagamentoRoute(app);
+  pilotoRoute(app);
 }
 
 export default Routes;
