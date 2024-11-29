@@ -1,13 +1,12 @@
-import PedidoProduto from '../models/PedidoProdutoModel';
+import PessoaModel from '../models/PessoaModel';
 
 const get = async (req, res) => {
   try {
-    const idProduto = req.params.idProduto ? req.params.idProduto.toString().replace(/\D/g, '') : null;
-    const idPedido = req.params.idPedido ? req.params.idPedido.toString().replace(/\D/g, '') : null;
+    const cpf = req.params.cpf ? req.params.cpf.toString().replace(/\D/g, '') : null;
 
-    if (!idProduto && !idPedido) {
-      const response = await PedidoProduto.findAll({
-        order: [['idProduto', 'asc']],
+    if (!cpf) {
+      const response = await PessoaModel.findAll({
+        order: [['cpf', 'asc']],
       });
       return res.status(200).send({
         message: 'Dados Encontrados!',
@@ -15,10 +14,9 @@ const get = async (req, res) => {
       });
     }
 
-    const response = await PedidoProduto.findOne({
+    const response = await PessoaModel.findOne({
       where: {
-        idProduto,
-        idPedido,
+        cpf,
       },
     });
 
@@ -37,11 +35,11 @@ const get = async (req, res) => {
 const create = async (req, res) => {
   try {
     const {
-      idPedido, idProduto, quantidade,
+      cpf, nome, email,
     } = req.body;
 
-    const response = await PedidoProduto.create({
-      idPedido, idProduto, quantidade,
+    const response = await PessoaModel.create({
+      cpf, nome, email,
     });
 
     return res.status(201).send({
@@ -58,26 +56,24 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const idProduto = req.params.idProduto ? req.params.idProduto.toString().replace(/\D/g, '') : null;
-    const idPedido = req.params.idPedido ? req.params.idPedido.toString().replace(/\D/g, '') : null;
+    const cpf = req.params.cpf ? req.params.cpf.toString().replace(/\D/g, '') : null;
 
-    if (!idProduto || !idPedido) {
+    if (!cpf) {
       return res.status(400).send({
-        message: 'id não informado',
+        message: 'cpf não informado',
         response: [],
       });
     }
 
-    const response = await PedidoProduto.findOne({
+    const response = await PessoaModel.findOne({
       where: {
-        idProduto,
-        idPedido,
+        cpf,
       },
     });
 
     if (!response) {
       return res.status(404).send({
-        message: 'id Não Encontrado na Base de Dados',
+        message: 'cpf Não Encontrado na Base de Dados',
         response: [],
       });
     }
@@ -101,26 +97,24 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const idProduto = req.params.idProduto ? req.params.idProduto.toString().replace(/\D/g, '') : null;
-    const idPedido = req.params.idPedido ? req.params.idPedido.toString().replace(/\D/g, '') : null;
+    const cpf = req.params.cpf ? req.params.cpf.toString().replace(/\D/g, '') : null;
 
-    if (!idProduto && !idPedido) {
+    if (!cpf) {
       return res.status(400).send({
-        message: 'id não informado',
+        message: 'cpf não informado',
         response: [],
       });
     }
 
-    const response = await PedidoProduto.findOne({
+    const response = await PessoaModel.findOne({
       where: {
-        idProduto,
-        idPedido,
+        cpf,
       },
     });
 
     if (!response) {
       return res.status(500).send({
-        message: 'id Não Encontrado na Base',
+        message: 'cpf Não Encontrado na Base',
         response: [],
       });
     }

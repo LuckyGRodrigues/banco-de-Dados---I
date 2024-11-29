@@ -1,11 +1,11 @@
-import ConsumidorModel from '../models/ConsumidorModel';
+import tipoAeronave from '../models/TipoAeronaveModel';
 
 const get = async (req, res) => {
   try {
     const id = req.params.id ? req.params.id.toString().replace(/\D/g, '') : null;
 
     if (!id) {
-      const response = await ConsumidorModel.findAll({
+      const response = await tipoAeronave.findAll({
         order: [['id', 'asc']],
       });
       return res.status(200).send({
@@ -14,7 +14,7 @@ const get = async (req, res) => {
       });
     }
 
-    const response = await ConsumidorModel.findOne({
+    const response = await tipoAeronave.findOne({
       where: {
         id,
       },
@@ -35,11 +35,11 @@ const get = async (req, res) => {
 const create = async (req, res) => {
   try {
     const {
-      id, dataCadastro, cpfUsuario,
+      id, descricao,
     } = req.body;
 
-    const response = await ConsumidorModel.create({
-      id, dataCadastro, cpfUsuario,
+    const response = await tipoAeronave.create({
+      id, descricao,
     });
 
     return res.status(201).send({
@@ -65,7 +65,7 @@ const update = async (req, res) => {
       });
     }
 
-    const response = await ConsumidorModel.findOne({
+    const response = await tipoAeronave.findOne({
       where: {
         id,
       },
@@ -106,7 +106,7 @@ const destroy = async (req, res) => {
       });
     }
 
-    const response = await ConsumidorModel.findOne({
+    const response = await tipoAeronave.findOne({
       where: {
         id,
       },
